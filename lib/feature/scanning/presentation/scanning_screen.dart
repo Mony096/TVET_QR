@@ -1,3 +1,4 @@
+import 'package:npit_qr/feature/scanning/presentation/detail_qr_scanned.dart';
 import 'package:npit_qr/feature/scanning/presentation/qr_code_scanner_screen.dart';
 import 'package:npit_qr/helper/helper.dart';
 import 'package:flutter/material.dart';
@@ -46,10 +47,20 @@ class _ScanningListScreenState extends State<ScanningListScreen> {
               alignment: Alignment.topCenter,
               child: Column(
                 children: [
-                  Image.asset(
-                    'images/logo.png',
-                    width: 140,
-                    height: 140,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailQrScanned(data: ""),
+                        ),
+                      );
+                    },
+                    child: Image.asset(
+                      'images/logo.png',
+                      width: 140,
+                      height: 140,
+                    ),
                   ),
                   Image.asset(
                     'images/NPIT.png',

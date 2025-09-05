@@ -28,14 +28,15 @@ class DioClient {
       final port = await LocalStorageManger.getString('port');
 
       final res = await _dio.get(
-        'https://$host:$port/b1s/v1$uri',
+        'https://bit-g1.npit-edu.com/api/student$uri',
         queryParameters: query,
-        options: Options(
-          headers: {
-            'Content-Type': "application/json",
-            'Cookie': 'B1SESSION=$token; ROUTEID=.node9',
-          },
-        ),
+        // options: Options(
+        //   headers: {
+        //     'Content-Type': "application/json",
+        //     "Authorization": 'Bearer $token',
+        //     'sapUrl': uri
+        //   },
+        // ),
         cancelToken: cancelToken,
       );
       return res;
@@ -44,7 +45,7 @@ class DioClient {
       log(e.requestOptions.uri.toString());
       log(jsonEncode(e.requestOptions.data));
       log('dio ${e.response?.statusCode}');
-
+      log(jsonEncode(e.requestOptions.headers));
       if (e.response?.statusCode == null) {
         throw const ConnectionRefuse(
           message: "Invalid Server Configuration",
@@ -73,6 +74,7 @@ class DioClient {
       rethrow;
     }
   }
+
 
   Future<Response> post(dynamic uri,
       {Options? options,
