@@ -1,0 +1,2 @@
+C:/Users/Admin/Desktop/TVET/npit-mobile-app/tvet_app/android/app/.cxx/RelWithDebInfo/2q6s1n05/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/Admin/Desktop/TVET/npit-mobile-app/tvet_app/android/app/.cxx/RelWithDebInfo/2q6s1n05/arm64-v8a/CMakeFiles/rebuild_cache.dir

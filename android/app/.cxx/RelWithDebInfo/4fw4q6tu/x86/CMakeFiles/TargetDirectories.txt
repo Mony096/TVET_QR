@@ -1,0 +1,2 @@
+C:/Users/Admin/Desktop/TVET/tvet_app/android/app/.cxx/RelWithDebInfo/4fw4q6tu/x86/CMakeFiles/edit_cache.dir
+C:/Users/Admin/Desktop/TVET/tvet_app/android/app/.cxx/RelWithDebInfo/4fw4q6tu/x86/CMakeFiles/rebuild_cache.dir
