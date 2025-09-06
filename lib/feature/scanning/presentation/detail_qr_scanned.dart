@@ -18,7 +18,7 @@ class _DetailQrScannedState extends State<DetailQrScanned> {
   int _selectedIndex = 0; // Tracks the selected tab
   late PageController _pageController; // Page controller for body content
   final DioClient dio = DioClient(); // Your custom Dio client
-
+  final Map<String, dynamic> data = {};
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -27,10 +27,6 @@ class _DetailQrScannedState extends State<DetailQrScanned> {
     _pageController = PageController(); // Initialize the PageController
     super.initState();
   }
-
-  // void init(BuildContext context) async {
-  //   // Initialization logic here
-  // }
 
   // Function to handle tab change
   void _onTabTapped(int index) {
@@ -49,18 +45,16 @@ class _DetailQrScannedState extends State<DetailQrScanned> {
 
     try {
       // --- Fetch equipment ---
-      final response = await dio
-          .get("/STU-CS0001202501-0001");
+      final response = await dio.get("/STU-CS0001202501-0001");
 
       if (response.statusCode == 200) {
         if (!mounted) return;
-        print(response.data);
-        MaterialDialog.close(context); // Show loading dialog
-
+        setState(() {
+          data.addAll(response.data);
+        });
         // --- U    pdate provider ---
-      } else {
-        throw Exception("Failed to load documents");
       }
+      print(data);
     } catch (e) {
       print("Error fetching documents: $e");
     } finally {
@@ -80,9 +74,10 @@ class _DetailQrScannedState extends State<DetailQrScanned> {
           });
         },
         children: [
-          const GeneralScreen(), // Replace with your General Screen widget
+          GeneralScreen(data: data), // Replace with your General Screen widget
           const AttendanceScreen(),
-          const PersonalScreen(), // Replace with your Customer Screen widget
+          PersonalScreen(
+              data: data), // Replace with your Customer Screen widget
         ],
       ),
       bottomNavigationBar: Container(

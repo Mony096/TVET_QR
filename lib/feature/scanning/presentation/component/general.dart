@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class GeneralScreen extends StatefulWidget {
-  const GeneralScreen({super.key});
-
+  GeneralScreen({super.key, required this.data});
+  Map<String, dynamic> data;
   @override
   _GeneralScreenState createState() => _GeneralScreenState();
 }
@@ -14,6 +14,10 @@ class _GeneralScreenState extends State<GeneralScreen> {
   @override
   void initState() {
     super.initState();
+    if (widget.data.isNotEmpty) {
+      print(widget.data);
+    }
+    print("1212");
   }
 
   List<dynamic> Subj = [
@@ -70,10 +74,10 @@ class _GeneralScreenState extends State<GeneralScreen> {
             height: 200,
             color: Colors.blue[800],
             width: MediaQuery.of(context).size.width,
-            child: const Stack(
+            child: Stack(
               clipBehavior: Clip.none,
               children: [
-                Positioned(
+                const Positioned(
                   top: 70,
                   left: 30,
                   child: Row(
@@ -98,7 +102,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
                   top: 125,
                   left: 25,
                   right: 25,
-                  child: ProfileSection(),
+                  child: ProfileSection(data: widget.data),
                 ),
               ],
             ),
@@ -121,21 +125,21 @@ class _GeneralScreenState extends State<GeneralScreen> {
             padding: const EdgeInsets.all(10),
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.fromLTRB(25, 3, 25, 15),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "ឆមាសទី 2 - រយៈពេលព្រឹត្តិការណ៍ 2014/2025",
-                  style: TextStyle(fontSize: 13),
+                  "ឆមាសទី ${widget.data["semester"]} - រយៈពេលព្រឹត្តិការណ៍ 2014/2025",
+                  style: const TextStyle(fontSize: 13),
                 ),
-                Icon(
+                const Icon(
                   Icons.arrow_drop_down,
                   size: 25,
                 )
               ],
             ),
           ),
-          const ScheduleSection(),
+          ScheduleSection(data: widget.data),
           Padding(
             padding: const EdgeInsets.fromLTRB(25, 15, 0, 3),
             child: Row(
@@ -183,7 +187,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
           const SizedBox(
             height: 5,
           ),
-          ...Subj.map((e) => SubjectDetailBox(e)),
+          ...(widget.data["exam_collection"] ?? []).map((e) => SubjectDetailBox(e)),
           const SizedBox(
             height: 30,
           ),
@@ -197,7 +201,8 @@ class _GeneralScreenState extends State<GeneralScreen> {
 }
 
 class ProfileSection extends StatelessWidget {
-  const ProfileSection({super.key});
+  ProfileSection({super.key, required this.data});
+  Map<String, dynamic> data;
 
   @override
   Widget build(BuildContext context) {
@@ -237,21 +242,22 @@ class ProfileSection extends StatelessWidget {
                   const SizedBox(
                     height: 9,
                   ),
-                  const Text("Reaksmey Kunmony (រស្មី គន្ទមុន្នី)",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                  Text(
+                      "${data["student_name"] ?? "N/A"} (${data["khmer_name"] ?? "N/A"})",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 15)),
                   const SizedBox(
                     height: 4,
                   ),
                   Text(
-                    "2025-PPA32143",
+                    "${data["student_id"] ?? "N/A"}",
                     style: TextStyle(fontSize: 12, color: Colors.grey[700]),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
                   Text(
-                    "ខេត្តកណ្ដាល, ក្រុងតាខ្មៅ, ភូមិព្រែកឫស្សី",
+                    "${data["address"] ?? "N/A"}",
                     style: TextStyle(fontSize: 13, color: Colors.grey[800]),
                   ),
                 ],
@@ -271,8 +277,8 @@ class ProfileSection extends StatelessWidget {
 }
 
 class ScheduleSection extends StatelessWidget {
-  const ScheduleSection({super.key});
-
+  ScheduleSection({super.key, required this.data});
+  Map<String, dynamic> data;
   @override
   Widget build(BuildContext context) {
     return const Padding(
@@ -423,7 +429,7 @@ class SubjectDetailBox extends StatelessWidget {
                             ],
                           ),
                           Text(
-                            e["subjName"],
+                            e["subject"],
                             style: const TextStyle(
                                 fontSize: 13, fontWeight: FontWeight.w500),
                           ),
@@ -453,7 +459,7 @@ class SubjectDetailBox extends StatelessWidget {
                             ],
                           ),
                           Text(
-                            e["subjCode"],
+                            e["subject_id"],
                             style: const TextStyle(
                                 fontSize: 12, color: Colors.grey),
                           ),
@@ -483,7 +489,7 @@ class SubjectDetailBox extends StatelessWidget {
                             ],
                           ),
                           Text(
-                            e["Name"],
+                            e["teacher"],
                             style: const TextStyle(
                                 fontSize: 13,
                                 color: Colors.black,
@@ -503,7 +509,7 @@ class SubjectDetailBox extends StatelessWidget {
               flex: 1,
               child: Text(
                 e["score"],
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                   color: Colors.black, // ✅ dynamic grade-based color
@@ -519,8 +525,8 @@ class SubjectDetailBox extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    color:
-                        getGradeColor(e["grade"]), // ✅ dynamic grade-based color
+                    color: getGradeColor(
+                        e["grade"]), // ✅ dynamic grade-based color
                   ),
                 ),
               ),

@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 
 class PersonalScreen extends StatefulWidget {
-  const PersonalScreen({super.key});
+  PersonalScreen({super.key, required this.data});
+  Map<String, dynamic> data;
 
   @override
   State<PersonalScreen> createState() => _PersonalScreenState();
 }
 
 class _PersonalScreenState extends State<PersonalScreen> {
+  @override
+  void initState() {
+    super.initState();
+    print(widget.data);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -57,19 +64,20 @@ class _PersonalScreenState extends State<PersonalScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        child: const Row(
+                        child: Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
-                            Icon(Icons.deblur),
-                            SizedBox(
+                            const Icon(Icons.deblur),
+                            const SizedBox(
                               width: 13,
                             ),
                             Padding(
-                              padding: EdgeInsets.only(top: 3.0),
-                              child: Text("Kunmony's Details",
-                                  style: TextStyle(fontSize: 15.5)),
+                              padding: const EdgeInsets.only(top: 3.0),
+                              child: Text(
+                                  "${widget.data["student_name"]}'s Details",
+                                  style: const TextStyle(fontSize: 15.5)),
                             ),
                           ],
                         ),
@@ -103,16 +111,17 @@ class _PersonalScreenState extends State<PersonalScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "Reaksmey Kunmony (រស្មី គន្ទមុន្នី)",
-                    style: TextStyle(
+                  Text(
+                    "${widget.data["student_name"] ?? "N/A"} (${widget.data["khmer_name"] ?? "N/A"})",
+                    style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                       shadows: [
                         Shadow(
                           offset: Offset(3.0, 3.0), // Position of the shadow
                           blurRadius: 3.0, // Softness of the shadow
-                          color: Color.fromARGB(128, 136, 149, 154), // Shadow color with opacity
+                          color: Color.fromARGB(
+                              128, 136, 149, 154), // Shadow color with opacity
                         ),
                       ],
                     ),
@@ -120,9 +129,14 @@ class _PersonalScreenState extends State<PersonalScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text("លេខកូដសិស្ស : "), Text("2025-PPA32143")],
+                    children: [
+                      Text("លេខកូដសិស្ស : "),
+                      Text(
+                        "${widget.data["student_id"] ?? "N/A"}",
+                      )
+                    ],
                   )
                 ],
               ),
@@ -183,24 +197,24 @@ class _PersonalScreenState extends State<PersonalScreen> {
                   indent: 0, // Left margin
                   endIndent: 0, // Right margin
                 ),
-                const DisplayField(keys: 'FirstName', values: "Reaksmey"),
-                const DisplayField(keys: 'LastName', values: "Kunmony"),
-                const DisplayField(keys: 'Gender', values: "Male"),
-                const DisplayField(
-                    keys: 'Date of Birth', values: "2-March-1900"),
-                const DisplayField(keys: 'Email', values: "mony096@gmail.com"),
-                const DisplayField(keys: 'Phone Number', values: "098 787 733"),
-                const DisplayField(
-                    keys: 'Enrollment Date', values: "2-March-2025"),
-                const DisplayField(
+                 DisplayField(keys: 'FirstName', values: "Reaksmey"),
+                 DisplayField(keys: 'LastName', values: "Kunmony"),
+                 DisplayField(keys: 'Gender', values:  "${widget.data["gender"] ?? "N/A"}"),
+                 DisplayField(
+                    keys: 'Date of Birth', values: "${widget.data["student_dob"] ?? "N/A"}"),
+                 DisplayField(keys: 'Email', values: "${widget.data["email"] ?? "N/A"}"),
+                 DisplayField(keys: 'Phone Number', values: "${widget.data["phone"] ?? "N/A"}"),
+                 DisplayField(
+                    keys: 'Enrollment Date', values: "${widget.data["enrollment_date"] ?? "N/A"}"),
+                 DisplayField(
                     keys: 'Address',
-                    values: "Prek Ruusey, Takhamo, Kandal, Cambodia"),
-                const DisplayField(keys: 'City', values: "Takhmao"),
-                const DisplayField(
-                    keys: 'Marital Status', values: "Mean Songsa "),
-                const DisplayField(
-                    keys: 'Department', values: "Information of Technology"),
-                const DisplayField(keys: 'major', values: "Testing"),
+                    values: "${widget.data["address"] ?? "N/A"}"),
+                 DisplayField(keys: 'City', values: "${widget.data["city"] ?? "N/A"}"),
+                 DisplayField(
+                    keys: 'Marital Status', values: "${widget.data["marital_status"] ?? "N/A"}"),
+                 DisplayField(
+                    keys: 'Department', values: "${widget.data["department"] ?? "N/A"}"),
+                 DisplayField(keys: 'major', values: "${widget.data["major"] ?? "N/A"}"),
               ],
             ),
           )
@@ -214,7 +228,7 @@ class DisplayField extends StatelessWidget {
   final String keys;
   final dynamic values;
 
-  const DisplayField({
+   DisplayField({
     super.key,
     required this.keys,
     this.values,

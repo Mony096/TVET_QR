@@ -80,34 +80,35 @@ class _ScanningListScreenState extends State<ScanningListScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Embark on your Simple',
+                Text(
+                  'Scan Student QR Code',
                   style: TextStyle(
+                    fontWeight: FontWeight.w500,
                     color: Colors.white,
                     fontSize: 30,
                   ),
                 ),
-                const SizedBox(height: 0),
-                const Text(
-                  'Travel Experience',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                  ),
-                ),
+                // const SizedBox(height: 0),
+                // const Text(
+                //   'Travel Experience',
+                //   style: TextStyle(
+                //     color: Colors.white,
+                //     fontSize: 30,
+                //   ),
+                // ),
                 const SizedBox(height: 20),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: Text(
                     textAlign: TextAlign.center,
-                    'Enjoy a smooth stress-free travel journey with ease and simplicity every step',
+                    'Quickly scan a student’s QR code to view their profile and academic information. Ensure the QR code is clear and within the frame for accurate scanning.',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 15,
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
 
                 /// QR Scanner Trigger
                 GestureDetector(

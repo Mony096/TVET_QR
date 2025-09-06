@@ -1,3 +1,4 @@
+import 'package:npit_qr/feature/scanning/presentation/scanning_screen.dart';
 import 'package:npit_qr/optionScreen.dart';
 import 'package:npit_qr/splashScreen.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +65,7 @@ class _MainScreenState extends State<MainScreen> {
             ? const SplashScreen()
             : BlocBuilder<AuthorizationBloc, AuthorizationState>(
                 builder: (context, state) {
-                  return const OptionScreen();
+                  return const ScanningListScreen();
                   // if (state is AuthorizationSuccess) {
                   //   return const DashboardScreen();
                   // } else {
