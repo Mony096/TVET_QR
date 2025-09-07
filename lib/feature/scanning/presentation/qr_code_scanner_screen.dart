@@ -23,7 +23,6 @@ class QRScannerScreen extends StatelessWidget {
                 height: 140,
               ),
             ),
-
             /// Scanning Camera in the center
             const SizedBox(height: 60), // Space between logo and camera view
             Container(

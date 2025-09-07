@@ -75,7 +75,7 @@ class _DetailQrScannedState extends State<DetailQrScanned> {
         },
         children: [
           GeneralScreen(data: data), // Replace with your General Screen widget
-          const AttendanceScreen(),
+           AttendanceScreen(data:data),
           PersonalScreen(
               data: data), // Replace with your Customer Screen widget
         ],

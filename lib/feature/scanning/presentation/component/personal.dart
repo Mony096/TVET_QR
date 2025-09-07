@@ -197,8 +197,8 @@ class _PersonalScreenState extends State<PersonalScreen> {
                   indent: 0, // Left margin
                   endIndent: 0, // Right margin
                 ),
-                 DisplayField(keys: 'FirstName', values: "Reaksmey"),
-                 DisplayField(keys: 'LastName', values: "Kunmony"),
+                 DisplayField(keys: 'FirstName', values:"${widget.data["first_name"] ?? "N/A"}"),
+                 DisplayField(keys: 'LastName', values: "${widget.data["last_name"] ?? "N/A"}"),
                  DisplayField(keys: 'Gender', values:  "${widget.data["gender"] ?? "N/A"}"),
                  DisplayField(
                     keys: 'Date of Birth', values: "${widget.data["student_dob"] ?? "N/A"}"),

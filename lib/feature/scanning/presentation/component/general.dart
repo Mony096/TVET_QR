@@ -129,7 +129,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "ឆមាសទី ${widget.data["semester"]} - រយៈពេលព្រឹត្តិការណ៍ 2014/2025",
+                  "ឆមាសទី ${widget.data["semester"]} - រយៈពេលព្រឹត្តិការណ៍ ${widget.data["enrollment_date"]}/${widget.data["graduation_date"]}",
                   style: const TextStyle(fontSize: 13),
                 ),
                 const Icon(
@@ -187,7 +187,8 @@ class _GeneralScreenState extends State<GeneralScreen> {
           const SizedBox(
             height: 5,
           ),
-          ...(widget.data["exam_collection"] ?? []).map((e) => SubjectDetailBox(e)),
+          ...(widget.data["exam_by_subject"] ?? [])
+              .map((e) => SubjectDetailBox(e)),
           const SizedBox(
             height: 30,
           ),
@@ -203,7 +204,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
 class ProfileSection extends StatelessWidget {
   ProfileSection({super.key, required this.data});
   Map<String, dynamic> data;
-
+   
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -235,9 +236,15 @@ class ProfileSection extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 30,
-                    backgroundImage: AssetImage("images/profile.jpg"),
+                    backgroundImage: NetworkImage(
+                      "${data["image"]}",
+                    ),
+                    onBackgroundImageError: (_, __) {
+                      // Handle error (optional)
+                    },
+                    child: Container(), // Fallback if image fails
                   ),
                   const SizedBox(
                     height: 9,
@@ -281,7 +288,7 @@ class ScheduleSection extends StatelessWidget {
   Map<String, dynamic> data;
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -289,11 +296,14 @@ class ScheduleSection extends StatelessWidget {
           SizedBox(height: 10),
           Row(
             children: [
-              Expanded(child: ScheduleCard("មុខវិទ្យា​ សរុប", "12")),
+              Expanded(
+                  child: ScheduleCard(
+                      "មុខវិទ្យា​ សរុប", "${data["total_subject"]}")),
               SizedBox(width: 10),
-              Expanded(child: ScheduleCard("ចំណាត់ថ្នាក់", "D")),
+              Expanded(child: ScheduleCard("និទ្ទេស", "${data["grade"]}")),
               SizedBox(width: 10),
-              Expanded(child: ScheduleCard("ពិន្ទុ សរុប", "200.55")),
+              Expanded(
+                  child: ScheduleCard("ពិន្ទុ សរុប", "${data["total_score"]}")),
             ],
           ),
         ],
@@ -508,7 +518,7 @@ class SubjectDetailBox extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Text(
-                e["score"],
+                e["average_score"],
                 style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
