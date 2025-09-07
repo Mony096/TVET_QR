@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class PersonalScreen extends StatefulWidget {
@@ -104,9 +105,31 @@ class _PersonalScreenState extends State<PersonalScreen> {
                   const SizedBox(
                     height: 60,
                   ),
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 30,
-                    backgroundImage: AssetImage("images/profile.jpg"),
+                    backgroundColor: Colors.grey[200],
+                    child: ClipOval(
+                      child: CachedNetworkImage(
+                        imageUrl: "${widget.data["image"]}",
+                        fit: BoxFit.cover,
+                        width: 60,
+                        height: 60,
+                        placeholder: (context, url) => const Center(
+                          child: SizedBox(
+                            width: 18,
+                            height: 18,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.blue, // 🔹 Blue color
+                            ),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => const Icon(
+                            Icons.person,
+                            size: 30,
+                            color: Colors.grey),
+                      ),
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -197,24 +220,39 @@ class _PersonalScreenState extends State<PersonalScreen> {
                   indent: 0, // Left margin
                   endIndent: 0, // Right margin
                 ),
-                 DisplayField(keys: 'FirstName', values:"${widget.data["first_name"] ?? "N/A"}"),
-                 DisplayField(keys: 'LastName', values: "${widget.data["last_name"] ?? "N/A"}"),
-                 DisplayField(keys: 'Gender', values:  "${widget.data["gender"] ?? "N/A"}"),
-                 DisplayField(
-                    keys: 'Date of Birth', values: "${widget.data["student_dob"] ?? "N/A"}"),
-                 DisplayField(keys: 'Email', values: "${widget.data["email"] ?? "N/A"}"),
-                 DisplayField(keys: 'Phone Number', values: "${widget.data["phone"] ?? "N/A"}"),
-                 DisplayField(
-                    keys: 'Enrollment Date', values: "${widget.data["enrollment_date"] ?? "N/A"}"),
-                 DisplayField(
+                DisplayField(
+                    keys: 'FirstName',
+                    values: "${widget.data["first_name"] ?? "N/A"}"),
+                DisplayField(
+                    keys: 'LastName',
+                    values: "${widget.data["last_name"] ?? "N/A"}"),
+                DisplayField(
+                    keys: 'Gender',
+                    values: "${widget.data["gender"] ?? "N/A"}"),
+                DisplayField(
+                    keys: 'Date of Birth',
+                    values: "${widget.data["student_dob"] ?? "N/A"}"),
+                DisplayField(
+                    keys: 'Email', values: "${widget.data["email"] ?? "N/A"}"),
+                DisplayField(
+                    keys: 'Phone Number',
+                    values: "${widget.data["phone"] ?? "N/A"}"),
+                DisplayField(
+                    keys: 'Enrollment Date',
+                    values: "${widget.data["enrollment_date"] ?? "N/A"}"),
+                DisplayField(
                     keys: 'Address',
                     values: "${widget.data["address"] ?? "N/A"}"),
-                 DisplayField(keys: 'City', values: "${widget.data["city"] ?? "N/A"}"),
-                 DisplayField(
-                    keys: 'Marital Status', values: "${widget.data["marital_status"] ?? "N/A"}"),
-                 DisplayField(
-                    keys: 'Department', values: "${widget.data["department"] ?? "N/A"}"),
-                 DisplayField(keys: 'major', values: "${widget.data["major"] ?? "N/A"}"),
+                DisplayField(
+                    keys: 'City', values: "${widget.data["city"] ?? "N/A"}"),
+                DisplayField(
+                    keys: 'Marital Status',
+                    values: "${widget.data["marital_status"] ?? "N/A"}"),
+                DisplayField(
+                    keys: 'Department',
+                    values: "${widget.data["department"] ?? "N/A"}"),
+                DisplayField(
+                    keys: 'major', values: "${widget.data["major"] ?? "N/A"}"),
               ],
             ),
           )
@@ -228,7 +266,7 @@ class DisplayField extends StatelessWidget {
   final String keys;
   final dynamic values;
 
-   DisplayField({
+  DisplayField({
     super.key,
     required this.keys,
     this.values,

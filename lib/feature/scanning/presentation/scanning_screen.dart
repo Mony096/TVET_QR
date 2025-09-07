@@ -47,20 +47,10 @@ class _ScanningListScreenState extends State<ScanningListScreen> {
               alignment: Alignment.topCenter,
               child: Column(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailQrScanned(data: ""),
-                        ),
-                      );
-                    },
-                    child: Image.asset(
-                      'images/logo.png',
-                      width: 140,
-                      height: 140,
-                    ),
+                  Image.asset(
+                    'images/logo.png',
+                    width: 140,
+                    height: 140,
                   ),
                   Image.asset(
                     'images/NPIT.png',
