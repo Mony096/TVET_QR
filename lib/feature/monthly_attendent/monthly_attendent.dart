@@ -19,7 +19,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
 
   Map<DateTime, String> _status = {}; // <-- Now dynamic from API
 
-  bool _isLoading = true;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -29,6 +29,10 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
 
   Future<void> _fetchAttendance() async {
     try {
+       setState(() {
+          _isLoading = true;
+        });
+
       final year = _focusedDay.year;
       final month = _focusedDay.month;
 
@@ -162,11 +166,26 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title:
-            const Text("Kunmony's Attendance", style: TextStyle(fontSize: 17)),
+        title: Text("${widget.data["student_name"]}'s Attendance",
+            style: TextStyle(fontSize: 17)),
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(
+              child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                    width: 25,
+                    height: 25,
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                    )),
+                SizedBox(
+                  height: 20,
+                ),
+                Text("Waiting ${widget.data["student_name"]} Attendance")
+              ],
+            ))
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

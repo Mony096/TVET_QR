@@ -59,7 +59,7 @@ class MaterialDialog {
     String? body,
     Function()? onConfirm,
     Function()? onCancel,
-    String confirmLabel = 'Ok',
+    String confirmLabel = 'Back',
     String cancelLabel = 'Cancel',
   }) async {
     return showDialog<void>(
@@ -98,25 +98,11 @@ class MaterialDialog {
                 style: TextStyle(fontSize: size(context).width * 0.035),
               ),
               onPressed: () {
-                if (onConfirm != null) {
-                  onConfirm();
-                }
-
+                Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },
             ),
-            TextButton(
-              child: Text(
-                cancelLabel,
-                style: TextStyle(fontSize: size(context).width * 0.035),
-              ),
-              onPressed: () {
-                if (onCancel != null) {
-                  onCancel();
-                }
-                Navigator.of(context).pop();
-              },
-            ),
+           
           ],
         );
       },

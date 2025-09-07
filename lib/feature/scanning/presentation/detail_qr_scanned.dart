@@ -23,6 +23,7 @@ class _DetailQrScannedState extends State<DetailQrScanned> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _init();
+      print(widget.data.split("/").last);
     });
     _pageController = PageController(); // Initialize the PageController
     super.initState();
@@ -41,24 +42,47 @@ class _DetailQrScannedState extends State<DetailQrScanned> {
   }
 
   Future<void> _init() async {
-    MaterialDialog.loading(context); // Show loading dialog
+    // --- Show loading dialog ---
+    MaterialDialog.loading(context);
 
     try {
       // --- Fetch equipment ---
-      final response = await dio.get("/STU-CS0001202501-0001");
+      final response = await dio.get("/${widget.data.split("/").last}");
 
       if (response.statusCode == 200) {
         if (!mounted) return;
+
         setState(() {
           data.addAll(response.data);
         });
-        // --- U    pdate provider ---
+
+        // ✅ Close loading after success
+        if (Navigator.of(context, rootNavigator: true).canPop()) {
+          MaterialDialog.close(context);
+        }
+      } else {
+        // ❌ Non-200 response
+        if (Navigator.of(context, rootNavigator: true).canPop()) {
+          MaterialDialog.close(context);
+        }
+        MaterialDialog.warning(
+          context,
+          title: 'Error',
+          body: 'Unexpected status: ${response.statusCode}',
+        );
       }
-      print(data);
     } catch (e) {
       print("Error fetching documents: $e");
-    } finally {
-      if (mounted) MaterialDialog.close(context);
+
+      // ✅ Close loading before showing error
+      if (Navigator.of(context, rootNavigator: true).canPop()) {
+        MaterialDialog.close(context);
+      }
+      MaterialDialog.warning(
+        context,
+        title: 'Error',
+        body: e.toString(),
+      );
     }
   }
 
@@ -75,7 +99,7 @@ class _DetailQrScannedState extends State<DetailQrScanned> {
         },
         children: [
           GeneralScreen(data: data), // Replace with your General Screen widget
-           AttendanceScreen(data:data),
+          AttendanceScreen(data: data),
           PersonalScreen(
               data: data), // Replace with your Customer Screen widget
         ],

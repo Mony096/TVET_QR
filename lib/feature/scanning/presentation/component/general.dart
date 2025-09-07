@@ -1,7 +1,6 @@
-import 'package:npit_qr/feature/scanning/presentation/qr_code_scanner_screen.dart';
 import 'package:npit_qr/helper/helper.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class GeneralScreen extends StatefulWidget {
   GeneralScreen({super.key, required this.data});
@@ -129,7 +128,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "ឆមាសទី ${widget.data["semester"]} - រយៈពេលព្រឹត្តិការណ៍ ${widget.data["enrollment_date"]}/${widget.data["graduation_date"]}",
+                  "ឆមាសទី ${widget.data["semester"] ?? "N/A"} - រយៈពេលព្រឹត្តិការណ៍ ${widget.data["enrollment_date"] ?? "N/A"}/${widget.data["graduation_date"] ?? "N/A"}",
                   style: const TextStyle(fontSize: 13),
                 ),
                 const Icon(
@@ -204,7 +203,7 @@ class _GeneralScreenState extends State<GeneralScreen> {
 class ProfileSection extends StatelessWidget {
   ProfileSection({super.key, required this.data});
   Map<String, dynamic> data;
-   
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -238,13 +237,29 @@ class ProfileSection extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 30,
-                    backgroundImage: NetworkImage(
-                      "${data["image"]}",
+                    backgroundColor: Colors.grey[200],
+                    child: ClipOval(
+                      child: CachedNetworkImage(
+                        imageUrl: "${data["image"]}",
+                        fit: BoxFit.cover,
+                        width: 60,
+                        height: 60,
+                        placeholder: (context, url) => const Center(
+                          child: SizedBox(
+                            width: 18,
+                            height: 18,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.blue, // 🔹 Blue color
+                            ),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => const Icon(
+                            Icons.person,
+                            size: 30,
+                            color: Colors.grey),
+                      ),
                     ),
-                    onBackgroundImageError: (_, __) {
-                      // Handle error (optional)
-                    },
-                    child: Container(), // Fallback if image fails
                   ),
                   const SizedBox(
                     height: 9,
@@ -404,6 +419,12 @@ class SubjectDetailBox extends StatelessWidget {
         color: e["color"] == "true"
             ? const Color.fromARGB(255, 236, 245, 250)
             : Colors.white,
+        border: const Border(
+          bottom: BorderSide(
+            color: Color.fromARGB(255, 226, 222, 222), // grey border
+            width: 0.5, // thin line
+          ),
+        ),
       ),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(25, 8, 0, 3),
