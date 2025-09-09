@@ -47,7 +47,7 @@ class _DetailQrScannedState extends State<DetailQrScanned> {
 
     try {
       // --- Fetch equipment ---
-      final response = await dio.get("/${widget.data.split("/").last}");
+      final response = await dio.get(widget.data);
 
       if (response.statusCode == 200) {
         if (!mounted) return;

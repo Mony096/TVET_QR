@@ -23,9 +23,8 @@ class DioClient {
   Future<Response> get(String uri,
       {Options? options, Map<String, dynamic>? query}) async {
     try {
-
       final res = await _dio.get(
-        'https://bit-g1.npit-edu.com/api/student$uri',
+        uri,
         queryParameters: query,
         // options: Options(
         //   headers: {
@@ -38,52 +37,52 @@ class DioClient {
       );
       return res;
     } on DioException catch (e) {
-    log(e.requestOptions.method);
-    log(e.requestOptions.uri.toString());
-    log(jsonEncode(e.requestOptions.data));
-    log('dio ${e.response?.statusCode}');
-    log(jsonEncode(e.requestOptions.headers));
+      log(e.requestOptions.method);
+      log(e.requestOptions.uri.toString());
+      log(jsonEncode(e.requestOptions.data));
+      log('dio ${e.response?.statusCode}');
+      log(jsonEncode(e.requestOptions.headers));
 
-    if (e.response?.statusCode == null) {
-      throw const ConnectionRefuse(
-        message: "Invalid Server Configuration",
+      if (e.response?.statusCode == null) {
+        throw const ConnectionRefuse(
+          message: "Invalid Server Configuration",
+        );
+      }
+
+      if (e.type == DioExceptionType.connectionError) {
+        throw const ConnectionRefuse(
+          message: "Invalid server host name.",
+        );
+      }
+
+      if (e.type == DioExceptionType.connectionTimeout) {
+        throw const ConnectionRefuse(
+          message:
+              "Sorry, our server is currently unavailable. Please contact our support.",
+        );
+      }
+
+      if (e.response?.statusCode == 401) {
+        throw const UnauthorizeFailure(message: 'Session already timeout');
+      }
+
+      if (e.response?.statusCode == 404) {
+        // 🔹 Return backend error instead of generic
+        final message = e.response?.data is Map<String, dynamic>
+            ? e.response?.data["error"] ?? "Not found"
+            : "Not found";
+        throw ServerFailure(message: message);
+      }
+
+      throw ServerFailure(
+        message: e.response?.data is String
+            ? e.response?.data
+            : "An unexpected error occurred.",
       );
+    } catch (e) {
+      rethrow;
     }
-
-    if (e.type == DioExceptionType.connectionError) {
-      throw const ConnectionRefuse(
-        message: "Invalid server host name.",
-      );
-    }
-
-    if (e.type == DioExceptionType.connectionTimeout) {
-      throw const ConnectionRefuse(
-        message:
-            "Sorry, our server is currently unavailable. Please contact our support.",
-      );
-    }
-
-    if (e.response?.statusCode == 401) {
-      throw const UnauthorizeFailure(message: 'Session already timeout');
-    }
-
-    if (e.response?.statusCode == 404) {
-      // 🔹 Return backend error instead of generic
-      final message = e.response?.data is Map<String, dynamic>
-          ? e.response?.data["error"] ?? "Not found"
-          : "Not found";
-      throw ServerFailure(message: message);
-    }
-
-    throw ServerFailure(
-      message: e.response?.data is String
-          ? e.response?.data
-          : "An unexpected error occurred.",
-    );
-  } catch (e) {
-    rethrow;
   }
-}
 
   Future<Response> post(dynamic uri,
       {Options? options,
