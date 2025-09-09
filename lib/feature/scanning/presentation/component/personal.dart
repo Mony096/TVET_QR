@@ -99,11 +99,9 @@ class _PersonalScreenState extends State<PersonalScreen> {
                     indent: 15, // Left margin
                     endIndent: 15, // Right margin
                   ),
+
                   const SizedBox(
-                    height: 7,
-                  ),
-                  const SizedBox(
-                    height: 60,
+                    height: 30,
                   ),
                   CircleAvatar(
                     radius: 30,
@@ -135,7 +133,25 @@ class _PersonalScreenState extends State<PersonalScreen> {
                     height: 10,
                   ),
                   Text(
-                    "${widget.data["student_name"] ?? "N/A"} (${widget.data["khmer_name"] ?? "N/A"})",
+                    "${widget.data["student_name"] ?? "N/A"}",
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          offset: Offset(3.0, 3.0), // Position of the shadow
+                          blurRadius: 3.0, // Softness of the shadow
+                          color: Color.fromARGB(
+                              128, 136, 149, 154), // Shadow color with opacity
+                        ),
+                      ],
+                    ),
+                  ),
+                  // const SizedBox(
+                  //   height: 5,
+                  // ),
+                  Text(
+                    "${widget.data["khmer_name"] ?? "N/A"}",
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -150,12 +166,12 @@ class _PersonalScreenState extends State<PersonalScreen> {
                     ),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("លេខកូដសិស្ស : "),
+                      const Text("លេខកូដសិស្ស : "),
                       Text(
                         "${widget.data["student_id"] ?? "N/A"}",
                       )
@@ -266,7 +282,7 @@ class DisplayField extends StatelessWidget {
   final String keys;
   final dynamic values;
 
-  DisplayField({
+  const DisplayField({
     super.key,
     required this.keys,
     this.values,

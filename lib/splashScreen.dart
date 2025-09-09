@@ -67,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
               },
             ),
           ),
-
+          SizedBox(height: 10,),
           /// Animated NPIT Image (Size & Position)
           AnimatedPositioned(
             duration: const Duration(seconds: 2),

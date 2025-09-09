@@ -105,192 +105,295 @@ class _DetailQrScannedState extends State<DetailQrScanned> {
         ],
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: const Color.fromARGB(255, 69, 78, 92).withOpacity(0.25),
-              blurRadius: 25,
-              offset: const Offset(0, 5),
-            ),
-          ],
-          color: const Color.fromARGB(255, 255, 255, 255),
-        ),
-        height: 60,
-        width: double.infinity,
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            // General Tab Button
-            Positioned(
-              top: 0,
-              left: 0,
-              bottom: 0,
-              child: Center(
-                child: SizedBox(
-                  width: 150,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(4, 4, 25, 4),
-                    child: ElevatedButton(
-                      onPressed: () => _onTabTapped(0), // Change to General tab
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        backgroundColor:
-                            const Color.fromARGB(255, 255, 255, 255),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.home,
-                              size: 24,
-                              color: _selectedIndex == 0
-                                  ? Colors.blue
-                                  : Colors.grey), // Highlight if selected
-                          const SizedBox(height: 4),
-                          Text(
-                            "General",
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: _selectedIndex == 0
-                                  ? Colors.blue
-                                  : Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: const Color.fromARGB(255, 69, 78, 92).withOpacity(0.25),
+                blurRadius: 25,
+                offset: const Offset(0, 5),
               ),
-            ),
-            Positioned(
-              top: 0,
-              left: 140,
-              bottom: 0,
-              child: Center(
-                child: SizedBox(
-                  width: 150,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(4, 4, 25, 4),
-                    child: ElevatedButton(
-                      onPressed: () => _onTabTapped(1), // Change to General tab
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        backgroundColor:
-                            const Color.fromARGB(255, 255, 255, 255),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(""),
-                          // Icon(Icons.assignment,
-                          //     size: 24,
-                          //     color: _selectedIndex == 1
-                          //         ? Colors.blue
-                          //         : Colors.grey), // Highlight if selected
-                          const SizedBox(height: 4),
-                          Text(
-                            "Attendance",
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: _selectedIndex == 1
-                                  ? Colors.blue
-                                  : Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
+            ],
+            color: const Color.fromARGB(255, 255, 255, 255),
+          ),
+          height: 60,
+          width: double.infinity,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(25, 4, 4, 4),
+                child: ElevatedButton(
+                  onPressed: () => _onTabTapped(0), // Change to General tab
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                   ),
-                ),
-              ),
-            ),
-            // Personal Tab Button
-            Positioned(
-              top: 0,
-              right: 0,
-              bottom: 0,
-              child: Center(
-                child: SizedBox(
-                  width: 150,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(25, 4, 4, 4),
-                    child: ElevatedButton(
-                      onPressed: () =>
-                          _onTabTapped(2), // Change to Personal tab
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.home,
+                          size: 24,
+                          color: _selectedIndex == 0
+                              ? Colors.blue
+                              : Colors.grey), // Highlight if selected
+                      const SizedBox(height: 4),
+                      Text(
+                        "General",
+                        style: TextStyle(
+                          fontSize: 13,
+                          color:
+                              _selectedIndex == 0 ? Colors.blue : Colors.grey,
                         ),
-                        backgroundColor:
-                            const Color.fromARGB(255, 255, 255, 255),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.person,
-                              size: 24,
-                              color: _selectedIndex == 2
-                                  ? Colors.blue
-                                  : Colors.grey), // Highlight if selected
-                          const SizedBox(height: 4),
-                          Text(
-                            "Personal",
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: _selectedIndex == 2
-                                  ? Colors.blue
-                                  : Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            // Center Logo Button
-            Positioned(
-              top: -40,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: Container(
-                  width: 68,
-                  height: 68,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color.fromARGB(255, 141, 143, 144)
-                            .withOpacity(0.25),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
                       ),
                     ],
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(9.0),
-                    child: Image.asset(
-                      'images/logo.png',
-                      width: 40,
-                      height: 40,
-                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
+               Padding(
+                padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+                child: ElevatedButton(
+                  onPressed: () => _onTabTapped(1), // Change to General tab
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.assignment,
+                          size: 24,
+                          color: _selectedIndex == 1
+                              ? Colors.blue
+                              : Colors.grey), // Highlight if selected
+                      const SizedBox(height: 4),
+                      Text(
+                        "Attendance",
+                        style: TextStyle(
+                          fontSize: 13,
+                          color:
+                              _selectedIndex == 1 ? Colors.blue : Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+               Padding(
+                padding: const EdgeInsets.fromLTRB(4, 4, 25, 4),
+                child: ElevatedButton(
+                  onPressed: () => _onTabTapped(2), // Change to General tab
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.person,
+                          size: 24,
+                          color: _selectedIndex == 2
+                              ? Colors.blue
+                              : Colors.grey), // Highlight if selected
+                      const SizedBox(height: 4),
+                      Text(
+                        "Personal",
+                        style: TextStyle(
+                          fontSize: 13,
+                          color:
+                              _selectedIndex == 2 ? Colors.blue : Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          )
+
+          //  Stack(
+          //   clipBehavior: Clip.none,
+          //   children: [
+          //     // General Tab Button
+          //     Positioned(
+          //       top: 0,
+          //       left: 0,
+          //       bottom: 0,
+          //       child: Center(
+          //         child: SizedBox(
+          //           width: 150,
+          //           child:
+          // Padding(
+          //             padding: const EdgeInsets.fromLTRB(4, 4, 25, 4),
+          //             child: ElevatedButton(
+          //               onPressed: () => _onTabTapped(0), // Change to General tab
+          //               style: ElevatedButton.styleFrom(
+          //                 elevation: 0,
+          //                 shape: RoundedRectangleBorder(
+          //                   borderRadius: BorderRadius.circular(10),
+          //                 ),
+          //                 backgroundColor:
+          //                     const Color.fromARGB(255, 255, 255, 255),
+          //               ),
+          //               child: Column(
+          //                 mainAxisSize: MainAxisSize.min,
+          //                 children: [
+          //                   Icon(Icons.home,
+          //                       size: 24,
+          //                       color: _selectedIndex == 0
+          //                           ? Colors.blue
+          //                           : Colors.grey), // Highlight if selected
+          //                   const SizedBox(height: 4),
+          //                   Text(
+          //                     "General",
+          //                     style: TextStyle(
+          //                       fontSize: 13,
+          //                       color: _selectedIndex == 0
+          //                           ? Colors.blue
+          //                           : Colors.grey,
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //     Positioned(
+          //       top: 0,
+          //       left: 140,
+          //       bottom: 0,
+          //       child: Center(
+          //         child: SizedBox(
+          //           width: 150,
+          //           child: Padding(
+          //             padding: const EdgeInsets.fromLTRB(4, 4, 25, 4),
+          //             child: ElevatedButton(
+          //               onPressed: () => _onTabTapped(1), // Change to General tab
+          //               style: ElevatedButton.styleFrom(
+          //                 elevation: 0,
+          //                 shape: RoundedRectangleBorder(
+          //                   borderRadius: BorderRadius.circular(10),
+          //                 ),
+          //                 backgroundColor:
+          //                     const Color.fromARGB(255, 255, 255, 255),
+          //               ),
+          //               child: Column(
+          //                 mainAxisSize: MainAxisSize.min,
+          //                 children: [
+          //                   Text(""),
+          //                   // Icon(Icons.assignment,
+          //                   //     size: 24,
+          //                   //     color: _selectedIndex == 1
+          //                   //         ? Colors.blue
+          //                   //         : Colors.grey), // Highlight if selected
+          //                   const SizedBox(height: 4),
+          //                   Text(
+          //                     "Attendance",
+          //                     style: TextStyle(
+          //                       fontSize: 13,
+          //                       color: _selectedIndex == 1
+          //                           ? Colors.blue
+          //                           : Colors.grey,
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //     // Personal Tab Button
+          //     Positioned(
+          //       top: 0,
+          //       right: 0,
+          //       bottom: 0,
+          //       child: Center(
+          //         child: SizedBox(
+          //           width: 150,
+          //           child: Padding(
+          //             padding: const EdgeInsets.fromLTRB(25, 4, 4, 4),
+          //             child: ElevatedButton(
+          //               onPressed: () =>
+          //                   _onTabTapped(2), // Change to Personal tab
+          //               style: ElevatedButton.styleFrom(
+          //                 elevation: 0,
+          //                 shape: RoundedRectangleBorder(
+          //                   borderRadius: BorderRadius.circular(10),
+          //                 ),
+          //                 backgroundColor:
+          //                     const Color.fromARGB(255, 255, 255, 255),
+          //               ),
+          //               child: Column(
+          //                 mainAxisSize: MainAxisSize.min,
+          //                 children: [
+          //                   Icon(Icons.person,
+          //                       size: 24,
+          //                       color: _selectedIndex == 2
+          //                           ? Colors.blue
+          //                           : Colors.grey), // Highlight if selected
+          //                   const SizedBox(height: 4),
+          //                   Text(
+          //                     "Personal",
+          //                     style: TextStyle(
+          //                       fontSize: 13,
+          //                       color: _selectedIndex == 2
+          //                           ? Colors.blue
+          //                           : Colors.grey,
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //     // Center Logo Button
+          //     Positioned(
+          //       top: -40,
+          //       left: 0,
+          //       right: 0,
+          //       child: Center(
+          //         child: Container(
+          //           width: 68,
+          //           height: 68,
+          //           decoration: BoxDecoration(
+          //             boxShadow: [
+          //               BoxShadow(
+          //                 color: const Color.fromARGB(255, 141, 143, 144)
+          //                     .withOpacity(0.25),
+          //                 blurRadius: 10,
+          //                 offset: const Offset(0, 4),
+          //               ),
+          //             ],
+          //             color: const Color.fromARGB(255, 255, 255, 255),
+          //             borderRadius: BorderRadius.circular(50),
+          //           ),
+          //           child: Padding(
+          //             padding: const EdgeInsets.all(9.0),
+          //             child: Image.asset(
+          //               'images/logo.png',
+          //               width: 40,
+          //               height: 40,
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          ),
     );
   }
 }
